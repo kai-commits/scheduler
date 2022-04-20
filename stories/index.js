@@ -145,9 +145,57 @@ storiesOf("Appointment", module)
   .add("Appointment with Time", () => <Appointment time="12pm" />)
   .add("Header", () => <Header time="12pm" />)
   .add("Empty", () => <Empty onAdd={action("onAdd")} />)
-  .add("Show", () => <Show student="Lydia Miller-Jones" interviewer={interviewer} onEdit={action("onEdit")} onDelete={action("onDelete")} />)
-  .add("Confirm", () => <Confirm message="Delete the appointment?" onConfirm={action("onConfirm")} onCancel={action("onCancel")} />)
+  .add("Show", () => (
+    <Show
+      student="Lydia Miller-Jones"
+      interviewer={interviewer}
+      onEdit={action("onEdit")}
+      onDelete={action("onDelete")}
+    />
+  ))
+  .add("Confirm", () => (
+    <Confirm
+      message="Delete the appointment?"
+      onConfirm={action("onConfirm")}
+      onCancel={action("onCancel")}
+    />
+  ))
   .add("Status", () => <Status message="Deleting" />)
-  .add("Error", () => <Error message="Could not delete appointment." onClose={action("onClose")} />)
-  .add("Edit Form", () => <Form student="Bobby Bob" interviewer={3} interviewers={interviewers} onSave={action("onSave")} onCancel={action("onCancel")} />)
-  .add("Create Form", () => <Form interviewers={interviewers} onSave={action("onSave")} onCancel={action("onCancel")} />);
+  .add("Error", () => (
+    <Error
+      message="Could not delete appointment."
+      onClose={action("onClose")}
+    />
+  ))
+  .add("Edit Form", () => (
+    <Form
+      student="Bobby Bob"
+      interviewer={3}
+      interviewers={interviewers}
+      onSave={action("onSave")}
+      onCancel={action("onCancel")}
+    />
+  ))
+  .add("Create Form", () => (
+    <Form
+      interviewers={interviewers}
+      onSave={action("onSave")}
+      onCancel={action("onCancel")}
+    />
+  ))
+  .add("Appointment Empty", () => (
+    <>
+      <Appointment id={1} time="4pm" />
+      <Appointment time="5pm" />
+    </>
+  ))
+  .add("Appointment Booked", () => (
+    <>
+      <Appointment
+        id={1}
+        time="4pm"
+        interview={{ student: "Lydia Miller-Jones", interviewer }}
+      />
+      <Appointment time="5pm" />
+    </>
+  ));
