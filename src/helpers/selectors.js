@@ -24,4 +24,24 @@ export const getInterview = (state, interview) => {
         interviewer: state.interviewers[interview.interviewer],
       }
     : null;
-}
+};
+
+export const getInterviewersForDay = (state, day) => {
+  let interviewerIds = [];
+  let results = [];
+  for (const item of state.days) {
+    if (item.name === day) {
+      interviewerIds = item.interviewers;
+    }
+  }
+
+  for (const id of interviewerIds) {
+    const interviewerKeys = Object.keys(state.interviewers);
+    for (const key of interviewerKeys) {
+      if (id === Number(key)) {
+        results.push(state.interviewers[id]);
+      }
+    }
+  }
+  return results;
+};
