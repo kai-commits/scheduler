@@ -33,8 +33,9 @@ export default function Application(props) {
       [id]: appointment,
     };
     return axios.put(`/api/appointments/${id}`, { interview })
-    .then(() => {
+    .then((res) => {
       setState({ ...state, appointments });
+      return res.status;
     });
   };
 
@@ -49,8 +50,9 @@ export default function Application(props) {
     };
 
     return axios.delete(`/api/appointments/${id}`)
-    .then(() => {
+    .then((res) => {
       setState({...state, appointments });
+      return res.status;
     });
   };
 
