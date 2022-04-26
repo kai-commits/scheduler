@@ -21,9 +21,28 @@ export default function useApplicaitonData() {
       [id]: appointment,
     };
 
-    const dayIndex = state.days.findIndex(day => day.name === state.day);
+    // const appointmentIds = state.days.find((day) => day.name === state.day).appointments;
+    // const dayIndex = state.days.filter((day) => day.name === state.day)[0].id - 1;
+    // let nullAppointments = [];
+    // for (const id of appointmentIds) {
+    //   nullAppointments.push(
+    //     ...Object.values(appointments)
+    //       .filter((appointment) => appointment.id === id)
+    //       .filter((item) => item.interview === null)
+    //   );
+    // }
+    const spots = state.days
+      .find((day) => day.name === state.day)
+      .appointments.map((dayId) =>
+        Object.values(appointments).find(
+          (appointment) => appointment.id === dayId
+        )
+      )
+      .filter((appointment) => appointment.interview === null).length;
+
+    const dayIndex = state.days.findIndex((day) => day.name === state.day);
     const days = [...state.days];
-    days[dayIndex].spots--;
+    days[dayIndex].spots = spots;
 
     return axios.put(`/api/appointments/${id}`, { interview }).then((res) => {
       setState({ ...state, appointments, days });
@@ -41,9 +60,9 @@ export default function useApplicaitonData() {
       [id]: appointment,
     };
 
-    const dayId = state.days.findIndex(day => day.name === state.day);
+    const dayId = state.days.findIndex((day) => day.name === state.day);
     const days = [...state.days];
-    days[dayId].spots++;
+    days[dayId].spots += 1;
 
     return axios.delete(`/api/appointments/${id}`).then((res) => {
       setState({ ...state, appointments, days });
