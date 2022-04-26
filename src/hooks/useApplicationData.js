@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function useApplicaitonData() {
+export default function useApplicationData() {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -21,16 +21,6 @@ export default function useApplicaitonData() {
       [id]: appointment,
     };
 
-    // const appointmentIds = state.days.find((day) => day.name === state.day).appointments;
-    // const dayIndex = state.days.filter((day) => day.name === state.day)[0].id - 1;
-    // let nullAppointments = [];
-    // for (const id of appointmentIds) {
-    //   nullAppointments.push(
-    //     ...Object.values(appointments)
-    //       .filter((appointment) => appointment.id === id)
-    //       .filter((item) => item.interview === null)
-    //   );
-    // }
     const spots = state.days
       .find((day) => day.name === state.day)
       .appointments.map((dayId) =>
