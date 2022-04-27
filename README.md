@@ -1,4 +1,6 @@
 # Interview Scheduler
+React based project to create meetings for students to connect with mentors in real-time.
+Built from the [Lighthouse Labs boilerplate](https://github.com/lighthouse-labs/scheduler). Runs off the [Interview Scheduler API](https://github.com/kai-commits/scheduler-api).
 
 ## Setup
 
