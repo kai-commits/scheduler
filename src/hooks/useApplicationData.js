@@ -20,19 +20,7 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };
-
-    const spots = state.days
-      .find((day) => day.name === state.day)
-      .appointments.map((dayId) =>
-        Object.values(appointments).find(
-          (appointment) => appointment.id === dayId
-        )
-      )
-      .filter((appointment) => appointment.interview === null).length;
-
-    const dayIndex = state.days.findIndex((day) => day.name === state.day);
-    const days = [...state.days];
-    days[dayIndex].spots = spots;
+    const days = updateSpots(appointments);
 
     return axios.put(`/api/appointments/${id}`, { interview }).then((res) => {
       setState({ ...state, appointments, days });
@@ -49,15 +37,28 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };
-
-    const dayId = state.days.findIndex((day) => day.name === state.day);
-    const days = [...state.days];
-    days[dayId].spots += 1;
+    const days = updateSpots(appointments);
 
     return axios.delete(`/api/appointments/${id}`).then((res) => {
       setState({ ...state, appointments, days });
       return res.status;
     });
+  };
+
+  const updateSpots = (appointments) => {
+    const spots = state.days
+      .find((day) => day.name === state.day)
+      .appointments.map((dayId) =>
+        Object.values(appointments).find(
+          (appointment) => appointment.id === dayId
+        )
+      )
+      .filter((appointment) => appointment.interview === null).length;
+
+    const dayIndex = state.days.findIndex((day) => day.name === state.day);
+    const days = [...state.days];
+    days[dayIndex].spots = spots;
+    return days;
   };
 
   useEffect(() => {
